@@ -1,10 +1,10 @@
 import json
 import unittest
-from bookshelf import BookShelf
-from book import Book
-from person import Person
+from ..bookshelf import BookShelf
+from ..book import Book
+from ..person import Person
 
-from serializer import ObjectEncoder, object_decoder
+from ..serializer import ObjectEncoder, object_decoder
 
 
 class TestSerialisation(unittest.TestCase):

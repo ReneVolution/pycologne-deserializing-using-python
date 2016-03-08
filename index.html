@@ -6,8 +6,8 @@
 
 		<title>(De-)Serializing complex objects using Python</title>
 
-		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-		<meta name="author" content="Hakim El Hattab">
+		<meta name="description" content="A presentation about (de-)serialising using Python.">
+		<meta name="author" content="René Calles">
 
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -15,7 +15,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+		<link rel="stylesheet" href="css/theme/league.css" id="theme">
 
 		<!-- Code syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -48,7 +48,7 @@
 				</section>
 
 				<section data-background="images/directions.jpg">
-					<h1>Overview</h1>
+					<h1>__init__()</h1>
 					<ul>
 						<li>About Me</li>
 						<li>What is (de-)serialising</li>
@@ -62,36 +62,189 @@
 					</ul>
 				</section>
 
-				<section>
+				<section data-background="images/squirrel.jpg">
 					<h1>About Me</h1>
+					<pre class="fragment"><code>
+class ReneCalles(Programmer, MediaEnthusiast):
+
+    birthday = datetime.fromtimestamp(443739925)
+
+    hobbies = ['Programming', 'Fishing', 'Gaming', 'Music',
+               'Meet Friends']
+    buzzwords = ['WebApps', 'Cloud', 'Streaming', 'Open Source']
+
+    programming_languages = {'Python': 2012,
+                             'C/C++': 'want to do more',
+                             'C#': 'seen'}
+
+    def on_free_time(self):
+        return random.choice(self.hobbies)
+
+					</code></pre>
 				</section>
 
-				<section>
-					<h1>What is (de-)serialising</h1>
+				<section data-background="images/puzzle_what.jpg">
+					<h1>What is <br>(de-)serialising</h1>
 				</section>
 
 				<section>
 					<h1>Why (de-)serialising</h1>
 				</section>
 
-				<section>
-					<h1>Why JSON</h1>
-				</section>
-
 				<section data-background="images/matrjoschka.jpg">
-					<h1>Complex Objects</h1>
-				</section>
-
-				<section>
-					<h1>Extending JSON</h1>
-				</section>
-
-				<section>
+					<section><h1>Complex Objects</h1></section>
 					<section>
-						<h1>Demo</h1>
+						<h1>Bookshelf</h1>
+						<pre><code data-trim>
+class BookShelf(object):
+    def __init__(self):
+        self.books = []
+
+    def add(self, book):
+        self.books.append(book)
+
+    def remove(self, title):
+        try:
+            idx = next(idx for idx, book in enumerate(self.books) if
+                       book.title == title)
+        except StopIteration:
+            raise BookNotFound('Could not find book: %s' % title)
+
+        del self.books[idx]
+
+    def count(self):
+        return len(self.books)
+
+						</code></pre>
 					</section>
 					<section>
-						<h1>Fallback Testcode</h1>
+						<h1>Book</h1>
+						<pre><code data-trim>
+class Book(object):
+
+    def __init__(self, title):
+        self.created_at = datetime.now()
+        self.title = title
+        self.author = Person()
+        self.description = 'No Description available'
+
+						</code></pre>
+					</section>
+					<section>
+						<h1>Person</h1>
+						<pre><code data-trim>
+class Person(object):
+
+    def __init__(self):
+        self.first_name = "John"
+        self.last_name = "Doe"
+        self.title = "Dead Manager"
+
+    @property
+    def name(self):
+        return '{0} {1}'.format(self.first_name, self.last_name)
+
+						</code></pre>
+					</section>
+
+				</section>
+
+				<section data-background="images/domo.jpg">
+					<!--<span class="attribution">Image : <a href="https://www.flickr.com/photos/sakitty">Sandra MZ</a></span>-->
+
+					<section>
+						<h1>JSON to the Rescue</h1>
+
+					</section>
+					<section>
+						<h2>Encoder</h2>
+						<pre><code>
+class ObjectEncoder(JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, datetime):
+            return {'__type__': 'datetime.datetime',
+                    'iso_format': obj.isoformat()}
+
+        if isinstance(obj, COMPLEX_OBJECTS):
+            obj_data = obj.__dict__.copy()
+            obj_data['__type__'] = type(obj).__name__
+            return obj_data
+
+        if type(obj).__name__ == 'Book':
+            obj_data = obj.__dict__.copy()
+            obj_data['__type__'] = type(obj).__name__
+            return obj_data
+
+        super().default(obj)
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>Decoder</h2>
+						<pre><code>
+def object_decoder(obj):
+
+    if '__type__' in obj:
+        cls_name = obj.pop('__type__')
+
+        if cls_name == 'datetime.datetime':
+            format_str = '%Y-%m-%dT%H:%M:%S.%f'
+            return datetime.strptime(obj['iso_format'], format_str)
+
+        elif cls_name == 'BookShelf':
+            new_instance = BookShelf()
+            new_instance.__dict__.update(obj)
+
+            return new_instance
+
+        elif cls_name == 'Book':
+            module = __import__('book', globals(), locals(), [cls_name])
+            klass = getattr(module, cls_name)
+            book = klass(obj.pop('title'))
+            book.__dict__.update(obj)
+
+            return book
+
+        elif cls_name == 'Person':
+            new_instance = Person()
+            new_instance.__dict__.update(obj)
+
+            return new_instance
+
+    return obj
+						</code></pre>
+					</section>
+				</section>
+
+				<section data-background="images/crash_test_dummy.jpg">
+					<section>
+						<h1>Proove me wrong</h1>
+					</section>
+					<section>
+						<h1>Proove me wrong</h1>
+						<pre><code data-trim data-noescape>
+class TestSerialisation(unittest.TestCase):
+
+    def test_serializing_roundtrip(self):
+        shelf = BookShelf()
+        for i in range(42):
+            shelf.add(Book('Python Magic'))
+
+        with open('../bookshelf.json', 'w') as json_file:
+            json.dump(shelf, json_file, <mark>cls=ObjectEncoder</mark>, indent=4)
+
+        with open('../bookshelf.json', 'r') as json_file:
+            shelf = json.load(json_file, <mark>object_hook=object_decoder</mark>)
+
+        self.assertIsInstance(shelf, BookShelf)
+
+        self.assertEqual(shelf.count(), 42)
+
+        for book in shelf.books:
+            self.assertIsInstance(book, Book)
+            self.assertIsInstance(book.author, Person)
+
+						</code></pre>
 					</section>
 				</section>
 
@@ -102,7 +255,23 @@
 				<section data-background="images/questionmark.jpg">
 				</section>
 
-
+				<section data-background="images/onelove.jpg">
+					<h1>Thanks</h1>
+					<h2>created with <a href="http://lab.hakim.se/reveal-js/#/">reveal.js</a></h2>
+					<h2>Images</h2>
+					<ul>
+						<li>puzzle.jpg [<a href="https://www.flickr.com/photos/pagedooley/">Kevin Dooley</a>]</li>
+						<li>domo.jpg [<a href="https://www.flickr.com/photos/sakitty">Sandra MZ</a>]</li>
+						<li>puzzle_done.jpg [<a href="https://www.flickr.com/photos/intvgene/">INTVGene</a>]</li>
+						<li>puzzle_what.jpg [<a href="https://www.flickr.com/photos/cyclops-photo/">Theodore C</a>]</li>
+						<li>questionmark.jpg [<a href="https://www.flickr.com/photos/waltjabsco/">Walt Jabsco</a>]</li>
+						<li>directions.jpg [<a href="https://www.flickr.com/photos/kryshen/">Mikhail Kryshen</a>]</li>
+						<li>matjoschka.jpg [<a href="https://www.flickr.com/photos/68069913@N02/">DryHundredFear</a>]</li>
+						<li>crash_test_dummy.jpg [<a href="https://www.flickr.com/photos/50732955@N00/">Timmy_L</a>]</li>
+						<li>onelove.jpg [<a href="https://renevolution.com">René Calles</a>]</li>
+						<li>squirrel.jpg [<a href="https://renevolution.com">René Calles</a>]</li>
+					</ul>
+				</section>
 			</div>
 
 		</div>
@@ -115,6 +284,7 @@
 			// Full list of configuration options available at:
 			// https://github.com/hakimel/reveal.js#configuration
 			Reveal.initialize({
+
 				controls: true,
 				progress: true,
 				history: true,
