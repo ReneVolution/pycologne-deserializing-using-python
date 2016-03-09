@@ -37,17 +37,18 @@
 	<body>
 
 		<div class="reveal">
+			<span class="attribution">Image : <a href="https://www.flickr.com/photos/pagedooley/">Kevin Dooley</a></span>
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
-				<section data-background="images/puzzle.jpg">
+				<section data-background="images/puzzle.jpg" data-attribution-name="Kevin Dooley" data-attribution-url="https://www.flickr.com/photos/pagedooley/">
 					<h1>(De-)Serializing complex objects using Python</h1>
 					<p>
 						<small>Created by <a href="http://renevolution.com">René Calles</a> / <a href="http://twitter.com/renecalles">@renecalles</a></small>
 					</p>
 				</section>
 
-				<section data-background="images/directions.jpg">
+				<section data-background="images/directions.jpg" data-attribution-name="Mikhail Kryshen" data-attribution-url="https://www.flickr.com/photos/kryshen/">
 					<h1>__init__()</h1>
 					<ul>
 						<li>About Me</li>
@@ -61,7 +62,7 @@
 					</ul>
 				</section>
 
-				<section data-background="images/squirrel.jpg">
+				<section data-background="images/squirrel.jpg" data-attribution-name="René Calles" data-attribution-url="https://renevolution.com">
 					<h1>About Me</h1>
 					<pre class="fragment"><code>
 class ReneCalles(Programmer, MediaEnthusiast):
@@ -82,7 +83,7 @@ class ReneCalles(Programmer, MediaEnthusiast):
 					</code></pre>
 				</section>
 
-				<section data-background="images/puzzle_what.jpg">
+				<section data-background="images/puzzle_what.jpg" data-attribution-name="Theodore C" data-attribution-url="https://www.flickr.com/photos/cyclops-photo/">
 					<h1>(De-)serialising</h1>
 					<blockquote cite="https://en.wikipedia.org/wiki/Serialization">
 						<p>&ldquo; ...is the process of translating data structures or object state into a format that can be stored (for example, in a file or memory buffer, or transmitted across a network connection link) and reconstructed later in the same or another computer environment.&rdquo;</p>
@@ -91,7 +92,7 @@ class ReneCalles(Programmer, MediaEnthusiast):
 					</blockquote>
 				</section>
 
-				<section data-background="images/network.jpg">
+				<section data-background="images/network.jpg" data-attribution-name="Antoine Colette" data-attribution-url="https://www.flickr.com/photos/spyk/">
 					<h1>But why?</h1>
 					<ul>
 						<li class="fragment">Saving an objects current state</li>
@@ -99,9 +100,9 @@ class ReneCalles(Programmer, MediaEnthusiast):
 					</ul>
 				</section>
 
-				<section data-background="images/matrjoschka.jpg">
-					<section><h1>Complex Objects</h1></section>
-					<section>
+				<section data-background="images/matrjoschka.jpg" data-attribution-name="DryHundredFear" data-attribution-url="https://www.flickr.com/photos/68069913@N02/">
+					<section data-attribution-name="DryHundredFear" data-attribution-url="https://www.flickr.com/photos/68069913@N02/"><h1>Complex Objects</h1></section>
+					<section data-attribution-name="DryHundredFear" data-attribution-url="https://www.flickr.com/photos/68069913@N02/">
 						<h1>Bookshelf</h1>
 						<pre><code data-trim>
 class BookShelf(object):
@@ -125,7 +126,7 @@ class BookShelf(object):
 
 						</code></pre>
 					</section>
-					<section>
+					<section data-attribution-name="DryHundredFear" data-attribution-url="https://www.flickr.com/photos/68069913@N02/">
 						<h1>Book</h1>
 						<pre><code data-trim>
 class Book(object):
@@ -138,7 +139,7 @@ class Book(object):
 
 						</code></pre>
 					</section>
-					<section>
+					<section data-attribution-name="DryHundredFear" data-attribution-url="https://www.flickr.com/photos/68069913@N02/">
 						<h1>Person</h1>
 						<pre><code data-trim>
 class Person(object):
@@ -157,14 +158,13 @@ class Person(object):
 
 				</section>
 
-				<section data-background="images/domo.jpg">
-					<!--<span class="attribution">Image : <a href="https://www.flickr.com/photos/sakitty">Sandra MZ</a></span>-->
+				<section data-background="images/domo.jpg" data-attribution-name="Sandra MZ" data-attribution-url="https://www.flickr.com/photos/sakitty">
 
-					<section>
+					<section data-attribution-name="Sandra MZ" data-attribution-url="https://www.flickr.com/photos/sakitty">
 						<h1>JSON to the Rescue</h1>
 
 					</section>
-					<section>
+					<section data-attribution-name="Sandra MZ" data-attribution-url="https://www.flickr.com/photos/sakitty">
 						<h2>Encoder</h2>
 						<pre><code>
 class ObjectEncoder(JSONEncoder):
@@ -187,7 +187,7 @@ class ObjectEncoder(JSONEncoder):
 						</code></pre>
 					</section>
 
-					<section>
+					<section data-attribution-name="Sandra MZ" data-attribution-url="https://www.flickr.com/photos/sakitty">
 						<h2>Decoder</h2>
 						<pre><code>
 def object_decoder(obj):
@@ -224,7 +224,7 @@ def object_decoder(obj):
 					</section>
 				</section>
 
-				<section data-background="images/crash_test_dummy.jpg">
+				<section data-background="images/crash_test_dummy.jpg" data-attribution-name="Timmy_L" data-attribution-url="https://www.flickr.com/photos/50732955@N00/">
 					<section>
 						<h1>Test me if you can</h1>
 					</section>
@@ -256,7 +256,7 @@ class TestSerialisation(unittest.TestCase):
 					</section>
 				</section>
 
-				<section data-background="images/puzzle_done.jpg">
+				<section data-background="images/puzzle_done.jpg" data-attribution-name="INTVGene" data-attribution-url="https://www.flickr.com/photos/intvgene/">
 					<h1>Caveats</h1>
 					<ul>
 						<li class="fragment">Object comparison may fail after deserialisation</li>
@@ -265,26 +265,7 @@ class TestSerialisation(unittest.TestCase):
 					</ul>
 				</section>
 
-				<section data-background="images/questionmark.jpg">
-				</section>
-
-				<section data-background="images/onelove.jpg">
-					<h1>Thanks</h1>
-					<h2>created with <a href="http://lab.hakim.se/reveal-js/#/">reveal.js</a></h2>
-					<h2>Images</h2>
-					<ul>
-						<li>puzzle.jpg [<a href="https://www.flickr.com/photos/pagedooley/">Kevin Dooley</a>]</li>
-						<li>domo.jpg [<a href="https://www.flickr.com/photos/sakitty">Sandra MZ</a>]</li>
-						<li>puzzle_done.jpg [<a href="https://www.flickr.com/photos/intvgene/">INTVGene</a>]</li>
-						<li>puzzle_what.jpg [<a href="https://www.flickr.com/photos/cyclops-photo/">Theodore C</a>]</li>
-						<li>questionmark.jpg [<a href="https://www.flickr.com/photos/waltjabsco/">Walt Jabsco</a>]</li>
-						<li>directions.jpg [<a href="https://www.flickr.com/photos/kryshen/">Mikhail Kryshen</a>]</li>
-						<li>matjoschka.jpg [<a href="https://www.flickr.com/photos/68069913@N02/">DryHundredFear</a>]</li>
-						<li>crash_test_dummy.jpg [<a href="https://www.flickr.com/photos/50732955@N00/">Timmy_L</a>]</li>
-						<li>network.jpg [<a href="https://www.flickr.com/photos/spyk//">Antoine Colette</a>]</li>
-						<li>onelove.jpg [<a href="https://renevolution.com">René Calles</a>]</li>
-						<li>squirrel.jpg [<a href="https://renevolution.com">René Calles</a>]</li>
-					</ul>
+				<section data-background="images/questionmark.jpg" data-attribution-name="Walt Jabsco" data-attribution-url="https://www.flickr.com/photos/waltjabsco/">
 				</section>
 			</div>
 
@@ -299,12 +280,12 @@ class TestSerialisation(unittest.TestCase):
 			// https://github.com/hakimel/reveal.js#configuration
 			Reveal.initialize({
 
-				controls: true,
+				controls: false,
 				progress: true,
 				history: true,
 				center: true,
 
-				transition: 'slide', // none/fade/slide/convex/concave/zoom
+				transition: 'fade', // none/fade/slide/convex/concave/zoom
 
 				// Optional reveal.js plugins
 				dependencies: [
@@ -316,6 +297,38 @@ class TestSerialisation(unittest.TestCase):
 					{ src: 'plugin/notes/notes.js', async: true }
 				]
 			});
+
+			Reveal.addEventListener( 'slidechanged', function( event ) {
+				var my_attributes = event.currentSlide.attributes;
+				// event.previousSlide, event.currentSlide, event.indexh, event.indexv
+				attribution_name = null;
+				attribution_url = null;
+
+				for (i = 0; i < my_attributes.length; i++) {
+					name = my_attributes[i].name;
+					value = my_attributes[i].value;
+
+					if (name === 'data-attribution-name') {
+						attribution_name = value;
+					}
+
+					if (name === 'data-attribution-url') {
+						attribution_url = value;
+					}
+				}
+
+				attr_elem = document.getElementsByClassName('attribution')[0];
+
+				if (attribution_name && attribution_url) {
+					attr_elem.lastChild.textContent = attribution_name;
+					attr_elem.lastChild.href = attribution_url;
+					attr_elem.hidden = false;
+				} else {
+
+					attr_elem.hidden = true;
+				}
+
+			} );
 
 		</script>
 
