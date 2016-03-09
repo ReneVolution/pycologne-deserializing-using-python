@@ -134,7 +134,7 @@ body {
   margin: 20px auto;
   padding: 5px;
   font-style: italic;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(6, 6, 6, 0.6);
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2); }
 
 .reveal blockquote p:first-child,
@@ -203,6 +203,11 @@ body {
   line-height: 1.2em;
   vertical-align: top; }
 
+.reveal p small {
+  color: white;
+  background: rgba(6, 6, 6, 0.4);
+  padding: 5px;}
+
 .reveal small * {
   vertical-align: top; }
 
@@ -210,7 +215,7 @@ body {
  * LINKS
  *********************************************/
 .reveal a {
-  color: #13DAEC;
+  color: #00b8ff;
   text-decoration: none;
   -webkit-transition: color 0.15s ease;
   -moz-transition: color 0.15s ease;
@@ -296,7 +301,7 @@ body {
     position: absolute;
     bottom: 2%;
     left: 2%;
-    font-size: 0.5em;
+    font-size: 0.6em;
 
     z-index: 9999 !important;
 }

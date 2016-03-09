@@ -6,7 +6,7 @@
 
 		<title>(De-)Serializing complex objects using Python</title>
 
-		<meta name="description" content="A presentation about (de-)serialising using Python.">
+		<meta name="description" content="A presentation about (de-)serializing using Python.">
 		<meta name="author" content="René Calles">
 
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -37,7 +37,7 @@
 	<body>
 
 		<div class="reveal">
-			<span class="attribution">Image : <a href="https://www.flickr.com/photos/pagedooley/">Kevin Dooley</a></span>
+			<span class="attribution">Image: <a href="https://www.flickr.com/photos/pagedooley/">Kevin Dooley</a></span>
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
@@ -52,9 +52,9 @@
 					<h1>__init__()</h1>
 					<ul>
 						<li>About Me</li>
-						<li>What is (de-)serialising</li>
+						<li>What is (de-)serializing</li>
 						<li>Complex Objects</li>
-						<li>What is (De-)serialising</li>
+						<li>What is (De-)serializing</li>
 						<li>Extending JSON</li>
 						<li>Demo</li>
 						<li>Caveats</li>
@@ -84,7 +84,7 @@ class ReneCalles(Programmer, MediaEnthusiast):
 				</section>
 
 				<section data-background="images/puzzle_what.jpg" data-attribution-name="Theodore C" data-attribution-url="https://www.flickr.com/photos/cyclops-photo/">
-					<h1>(De-)serialising</h1>
+					<h1>(De-)serializing</h1>
 					<blockquote cite="https://en.wikipedia.org/wiki/Serialization">
 						<p>&ldquo; ...is the process of translating data structures or object state into a format that can be stored (for example, in a file or memory buffer, or transmitted across a network connection link) and reconstructed later in the same or another computer environment.&rdquo;</p>
 						<cite><small style="float: right;text-align: right;margin-top: 4px;"><a href="https://en.wikipedia.org/wiki/Serialization">Wikipedia</a></small></cite>
@@ -231,7 +231,7 @@ def object_decoder(obj):
 					<section data-attribution-name="Timmy_L" data-attribution-url="https://www.flickr.com/photos/50732955@N00/">
 						<h1>Test me if you can</h1>
 						<pre><code data-trim data-noescape>
-class TestSerialisation(unittest.TestCase):
+class TestSerialization(unittest.TestCase):
 
     def test_serializing_roundtrip(self):
         shelf = BookShelf()
@@ -259,7 +259,7 @@ class TestSerialisation(unittest.TestCase):
 				<section data-background="images/puzzle_done.jpg" data-attribution-name="INTVGene" data-attribution-url="https://www.flickr.com/photos/intvgene/">
 					<h1>Caveats</h1>
 					<ul>
-						<li class="fragment">Object comparison may fail after deserialisation</li>
+						<li class="fragment">Object comparison may fail after deserialization</li>
 						<li class="fragment">Ensure that unneeded attributes will not be serialized</li>
 						<li class="fragment">Requires work for every new class added</li>
 					</ul>
